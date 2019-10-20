@@ -1,25 +1,16 @@
 {
-  "name": "back-end",
+  "name": "back-end2",
   "version": "1.0.0",
-  "description": "Back-End Server For Receipt Tracker App",
+  "description": "API Hosted @ [https://api-receipt-tracker.herokuapp.com/](https://api-receipt-tracker.herokuapp.com/)",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
+    "server": "nodemon index.js",
     "start": "node index.js"
- 
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Build-Week-ReceiptTracker/Back-End.git"
-  },
-  "author": "Mike Harley",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Build-Week-ReceiptTracker/Back-End/issues"
-  },
-  "homepage": "https://github.com/Build-Week-ReceiptTracker/Back-End#readme",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -27,17 +18,11 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.19.5",
     "knex-cleaner": "^1.3.0",
-    "knex-db-manager": "^0.5.0",
-    "pg": "^7.12.1",
-    "pg-escape": "^0.2.0"
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "jest": "^24.9.0",
-    "nodemon": "^1.19.4",
     "sqlite3": "^4.1.0",
     "supertest": "^4.0.2"
-  },
-  "engines": {
-    "node": "12.11"
   }
 }

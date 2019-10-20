@@ -1,27 +1,28 @@
-const express = require('express')
-const cors = require('cors')
-const helmet = require('helmet')
-const mw = require('../middleware/server-middleware')
-//Creates server
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+
+const authRouter = require('../auth/auth-users')
+
+
+// Create server
 const server = express()
 
-// Global Middleware
-server.use(mw.logger)
-server.use(express.json())
+// Add middleware
+server.use(helmet());
+server.use(cors());
+server.use(express.json());
 
+//Add routes
+server.use('/api/auth',authRouter);
 
-server.use(helmet())
-server.use(cors())
+//Test server
 
+server.get('/',(req,res)=>{
+    res.status(200).json({message:`It's Working!!!!!`})
+});
 
-// Routes/Endpoints
+  
+  module.exports = server;
 
-
-
-// Server Landing Page
-server.get('/', (req,res) =>{
-    res.status(201).send('<a style="text-align":center"><h1>Welcome to The Receipt Tracker Back-End</h1></a>')
-})
-
-
-module.exports = server
+ 

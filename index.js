@@ -1,8 +1,9 @@
-require('dotenv').config('./config/default')
+require('dotenv').config()
 const server = require('./api/server')
 const path = require('path')
-const defaults = require('./config/default')
-const port = defaults.port
+
+const port = process.env.PORT
+
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
@@ -12,8 +13,9 @@ if (process.env.NODE_ENV === 'production') {
     server.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
-}
+}else{
 
-server.listen(port,()=>{
-    console.log(`\n******  Api up on port:${port}  *****\n`)
-})
+    server.listen(port,()=>{
+        console.log(`\n******  Api up on port:${port}  *****\n`)
+    })
+}
