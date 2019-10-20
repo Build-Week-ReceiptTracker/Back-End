@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const request = require('supertest');
 const server = require("./server");
 
@@ -14,4 +15,20 @@ describe("server.js accessing routes",()=>{
      expect(res.status).toBe(404);
    })
   })
+=======
+const request = require("supertest")
+const server = require("./server")
+
+describe("Sever starts with out crashing",()=>{
+    describe("npm run server",()=>{
+     it("Api Up on 5000" ,async()=>{
+        const res = await request(server)
+            .then()
+            .catch()
+            expect(res.status).toBe();
+        });
+ 
+    });
+
+>>>>>>> Mike_Harley
 })
