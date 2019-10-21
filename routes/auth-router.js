@@ -15,10 +15,10 @@ router.post('/register', (req, res) => {
 
   db.add(user)
   console.log(user)
-    .then(saved => {
+    .then(
   
-    res.status(201);
-    })
+    res.status(201))
+  
     .catch(error => {
   
       res.status(500).json({ message: 'cannot add the user', error });
