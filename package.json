@@ -2,7 +2,7 @@
   "name": "back-end2",
   "version": "1.0.0",
   "description": "API Hosted @ [https://api-receipt-tracker.herokuapp.com/](https://api-receipt-tracker.herokuapp.com/)",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --watch",
     "start": "node server.js"
