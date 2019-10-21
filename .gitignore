@@ -90,3 +90,5 @@ typings/
 .vscode/
 #gcloud 
 .gcloudignore
+
+package-lock.json
