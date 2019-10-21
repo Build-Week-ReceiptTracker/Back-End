@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 require('dotenv').config('./config/default')
 const express = require('express')
+=======
+require('dotenv').config()
+const server = require('./api/server')
+<<<<<<< HEAD
+
+
+const port = process.env.PORT
+server.listen(port,()=>{
+    console.log(`\n******  Api up on port:${port}  *****\n`)
+})
+=======
+>>>>>>> a4fcef349f21d597ed2f4475a59df738b260a0ce
 const path = require('path')
 const defaults = require('./config/default')
 const server = require('./api/server')
@@ -23,3 +36,4 @@ if (process.env.NODE_ENV === 'production') {
         console.log(`\n******  Api up on port:${port}  *****\n`)
     })
 }
+>>>>>>> Mike_Harley
