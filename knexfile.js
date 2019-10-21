@@ -11,22 +11,7 @@ module.exports = {
   //   },
   //   seeds: { directory: './database/seeds' },
   // },
-  // development: {
-  //   client: 'pg',
-  //   connection: {
-  //     host:'ec2-54-83-33-14.compute-1.amazonaws.com',
-  //     database:'d8tt46hfandbn9',
-  //     user:'vvjedexpmooagk',
-  //     password:'61486eef75fe3c214aed502ef6aad9412436e76f31cfd6170ba8c06352f4a064',
-  //     ssl:true
-  //   },
-  //   useNullAsDefault: true,
-  //   migrations: {
-  //     directory: './database/migrations',
-  //     tableName: 'dbmigrations',
-  //   },
-  //   seeds: { directory: './database/seeds' },
-  // },
+
 
 
   staging: {
