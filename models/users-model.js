@@ -28,7 +28,7 @@ function find() {
   
   function add(userData) {
     return db('users')
-      .insert(userData)
+      .insert(userData, "id")
       .then(userIdArr => findById(userIdArr[0]))
   }
   

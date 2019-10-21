@@ -14,10 +14,10 @@ router.post('/register', (req, res) => {
  user.password = hash
 
   db.add(user)
-  console.log(user)
-    .then(
+ 
+    .then(saved =>{
   
-    res.status(201))
+    res.status(201).json(saved)})
   
     .catch(error => {
   
