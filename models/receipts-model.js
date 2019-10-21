@@ -16,7 +16,7 @@ function getReceipts(username) {
 
 function postReceipt(receipt) {
     return db('receipts')
-        .insert(receipt);
+        .insert(receipt,"id");
 };
 
 function deleteReceipt(id) {

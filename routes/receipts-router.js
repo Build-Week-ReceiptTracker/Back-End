@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 router.post('/add', (req, res) => {
     const receipt = req.body;
 
-    if(receipt.date && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username) {
+    if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json(id))
             .catch(err => res.status(500).json({ error: err }));
