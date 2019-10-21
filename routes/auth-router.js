@@ -9,13 +9,14 @@ const secrets = require('../config/secrets');
 // for endpoints beginning with /api
 router.post('/register', (req, res) => {
   let user = req.body;
- 
+  console.log(user)
   const hash = bcrypt.hashSync(user.password,10); // 2 ^ n
  user.password = hash
 
   db.add(user)
+  console.log(user)
     .then(saved => {
-   
+  
       res.status(201).json(saved);
     })
     .catch(error => {
