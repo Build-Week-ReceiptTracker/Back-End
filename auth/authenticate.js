@@ -14,7 +14,7 @@ module.exports = (req,res,next) => {
                 res.status(401).json({message:"Invalid Token!!!!! Please Log In Again"});
             }else{
                 // Valid token
-                req.user = {username: decodedToken.email };
+                req.user = decodedToken.username ;
        
                 //Finish with this middleware onto the next
                 

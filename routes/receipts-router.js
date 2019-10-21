@@ -2,13 +2,14 @@ const router = require('express').Router();
 
 const Receipts = require('../models/receipts-model');
 // api/auth/receipts
-//username
-router.get('/', (req, res) => {
-    const token = req.decodedToken;
 
-    Receipts.getReceipts(token)
+router.get('/all',(req, res) => {
+
+
+    console.log(req.user)
+    Receipts.getReceipts(req.user)
         .then(receipts => res.status(200).json(receipts))
-        .catch(err => res.status(500).json({ error: err }));
+        .catch(err => res.status(500).json({ error: err.message }));
 });
 
 router.post('/add', (req, res) => {
