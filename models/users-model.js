@@ -21,6 +21,7 @@ function find() {
   
   function findById(id) {
     return db('users')
+    .select('username','id')
       .where({ id })
       .first()
       .then(user => user)
@@ -28,7 +29,7 @@ function find() {
   
   function add(userData) {
     return db('users')
-      .insert(userData)
+      .insert(userData, "id")
       .then(userIdArr => findById(userIdArr[0]))
   }
   
