@@ -9,7 +9,7 @@ module.exports = {
 
 function getReceipts(username) {
     return db('receipts as r')
-        .join('users as u', 'r.user_username', 'u.email')
+        .join('users as u', 'r.user_username', 'u.username')
         .select('r.id', 'r.date', 'r.amount_spent', 'r.category', 'r.merchant')
         .where({ username: username.username });
 };

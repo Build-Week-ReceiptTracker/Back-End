@@ -89,3 +89,5 @@ typings/
 
 # VSCode settings
 .vscode/
+#gcloud 
+.gcloudignore

@@ -3,11 +3,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 //Login/Signup Router
-const authRouter = require('../auth/auth-users')
+
+const nonAuth = require('../routes/login-signup')
 //Receipts router
 const receipts = require('../routes/receipts-router')
 //Restricted routes router
-const restricted = require('../auth/restricted')
+const authenticate = require('../auth/authenticate')
 
 
 // Create server
@@ -19,8 +20,8 @@ server.use(cors());
 server.use(express.json());
 
 //Add routes
-server.use('/api/auth',authRouter);
-server.use('/api/receipts',restricted,receipts)
+server.use('/api',nonAuth);
+server.use('/api/auth',receipts)
 //Test server
 
 server.get('/',(req,res)=>{
