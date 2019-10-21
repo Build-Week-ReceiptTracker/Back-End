@@ -5,38 +5,33 @@ const jwt = require('jsonwebtoken');
 
 const secrets = require('../config/secrets');
 
-// for endpoints beginning with /api
+// for endpoints beginning with /api/auth
 router.post('/register', (req, res) => {
   let user = req.body;
 
   const hash = bcrypt.hashSync(user.password,10) // 2 ^ n
  user.password = hash
 
-  db.add(user)
+  db.register(user)
     .then(saved => {
-    const token = getJwt(saved);
-      res.status(201).json({
-      
-        message:`${saved.email} Saved Sucessfully`,
-      token
-    });
+    
+      res.status(201).json({message:`user added`,saved});
     })
     .catch(error => {
 
-      res.status(500).json({
-        message:'cannot add the user',error});
+      res.status(500).json({message:'cannot add the user',error});
     });
 });
 
 router.post('/login', (req, res) => {
   let { email , password } = req.body;
 
-  db.findBy({ email })
+  db.login({ email })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         // produce token
-        const token = getJwt(user);
+        const token = generateToken(user);
 
         // add token to response
         res.status(200).json({
@@ -52,7 +47,7 @@ router.post('/login', (req, res) => {
     });
 
 })
-   function getJwt(user) {
+   function generateToken(user) {
      const payload = {
        username: user.email,
        subject: user.id,

@@ -1,23 +1,20 @@
 const router = require('express').Router();
 
 const Receipts = require('../models/receipts-model');
+// api/auth/receipts
+//username
+router.get('/', (req, res) => {
+    const token = req.decodedToken;
 
-//api/auth'
-router.get('/receipts', (req, res) => {
-   const id = req.header.id
-     
-    Receipts.getReceipts(id)
+    Receipts.getReceipts(token)
         .then(receipts => res.status(200).json(receipts))
         .catch(err => res.status(500).json({ error: err }));
-  
-  
 });
 
-
-router.post('/receipt', (req, res) => {
+router.post('/add', (req, res) => {
     const receipt = req.body;
 
-    if(receipt.date && receipt.amount_spent && receipt.category &&receipt.merchant && receipt.user_username) {
+    if(receipt.date && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json(id))
             .catch(err => res.status(500).json({ error: err }));
@@ -26,7 +23,7 @@ router.post('/receipt', (req, res) => {
     }
 });
 
-router.delete('/remove/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const id = req.params.id;
 
     Receipts.deleteReceipt(id)
@@ -37,10 +34,10 @@ router.delete('/remove/:id', (req, res) => {
         .catch(err => res.status(500).json({ error: err }));
 });
 
-router.put('/update/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
-    
+    const token = req.decodedToken;
 
     if(changes.date && changes.amount_spent && changes.category && changes.merchant) {
         Receipts.updateReceipt(id, changes)

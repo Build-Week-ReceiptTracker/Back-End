@@ -2,26 +2,31 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
-//Login/Signup Router
-
-const nonAuth = require('../routes/login-signup')
-//Receipts router
-const receipts = require('../routes/receipts-router')
-//Restricted routes router
+//restricted routes
+const authRouter = require('../routes/auth-router')
 const authenticate = require('../auth/authenticate')
+const receipts = require('../routes/receipts-router')
+
 
 
 // Create server
 const server = express()
 
 // Add middleware
+
+const logger = (req, res, next) => {
+  console.log(`${req.method} request was made to ${req.url}`)
+  next();
+};
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+server.use(logger);
 
 //Add routes
-server.use('/api',nonAuth);
-server.use('/api/auth',receipts)
+server.use('/api',authRouter);
+server.use('/api/auth/receipts',authenticate,receipts)
 //Test server
 
 server.get('/',(req,res)=>{
