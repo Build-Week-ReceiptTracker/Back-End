@@ -19,7 +19,8 @@
     "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.19.5",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "sqlite3": "^4.1.0"
   },
   "devDependencies": {
     "jest": "^24.9.0",

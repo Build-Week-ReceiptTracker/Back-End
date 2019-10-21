@@ -29,9 +29,20 @@ server.use('/api',authRouter);
 server.use('/api/auth/receipts',authenticate,receipts)
 //Test server
 
-server.get('/',(req,res)=>{
-    res.status(200).send(`<h1>Welcome to Receipt Tracker Api</h1>`)
-});
+
+server.get('/', (req, res) => {
+  res.send(`<title>Receipt Tracker</title>
+  <h1>Welcome to Receipt Tracker's Api</h1>
+  
+  <ul>Endpoints Login / Register
+     <li> POST /api/register</li>
+     <li> POST /api/login</li>
+ 
+  
+  </ul>
+  
+`)
+})
 
   
   module.exports = server;
