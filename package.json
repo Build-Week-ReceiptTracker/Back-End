@@ -2,16 +2,18 @@
   "name": "back-end2",
   "version": "1.0.0",
   "description": "API Hosted @ [https://api-receipt-tracker.herokuapp.com/](https://api-receipt-tracker.herokuapp.com/)",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --watch",
+
     "start": "node index.js"
+
   },
   "author": "Mike Harley",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
+    "cors": "^2.8.5",9
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.21.1",
