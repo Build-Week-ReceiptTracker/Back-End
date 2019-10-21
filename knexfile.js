@@ -1,6 +1,35 @@
 // Update with your config settings.
 
 module.exports = {
+<<<<<<< HEAD
+
+
+
+    development: {
+      client: 'pg',
+      connection: process.env.DB_URL,
+      useNullAsDefault: true,
+      migrations: {
+        directory: './data/migrations'
+      },
+      pool: {
+        min:2,
+        max:10
+      },
+      
+      seeds: {
+        directory: './data/seeds'
+      },
+      pool: {
+        afterCreate: (conn, done) => {
+          conn.run('PRAGMA foreign_keys = ON', done);
+        },
+      },
+    
+  
+  
+
+=======
   development: {
     client: 'sqlite3',
     connection: { filename: './database/receipttrack.db3' },
@@ -29,6 +58,7 @@ module.exports = {
   // },
 
 
+>>>>>>> Mike_Harley
   staging: {
     client: 'postgresql',
     connection: {
@@ -60,5 +90,12 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   }
+<<<<<<< HEAD
+}
+}
+
+
+=======
 
 };
+>>>>>>> Mike_Harley
