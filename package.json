@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "start": "node index.js",
-    "build": "npm run clean && ./node_modules/.bin/babel server.js --out-dir dist && ./node_modules/.bin/babel app --out-dir dist/app && cp secrets.json dist"
+    "start": "node index.js"
+
   },
   "author": "Mike Harley",
   "license": "MIT",
