@@ -14,10 +14,10 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host:'ec2-54-225-115-177.compute-1.amazonaws.com',
-      database:'deu61mgsflhhqk',
-      user:'gjwnqhcnkedyvo',
-      password:'35ef3e4556193fd7d57b228b80ed6b4e324615cb33f781f65ed17f1d36f3a9a0',
+      host:'ec2-54-83-33-14.compute-1.amazonaws.com',
+      database:'d8tt46hfandbn9',
+      user:'vvjedexpmooagk',
+      password:'61486eef75fe3c214aed502ef6aad9412436e76f31cfd6170ba8c06352f4a064',
       ssl:true
     },
     useNullAsDefault: true,
