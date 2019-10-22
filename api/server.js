@@ -34,9 +34,14 @@ server.get('/', (req, res) => {
   res.send(`<title>Receipt Tracker</title>
   <h1>Welcome to Receipt Tracker's Api</h1>
   
-  <ul>Endpoints Login / Register
+ <ul> <h2>Endpoints</h2>
+      <h3> Login / Register</h3>
      <li> POST /api/register</li>
      <li> POST /api/login</li>
+         
+           <h3>Must Be Logged In</h3>
+     <li> POST /api/auth/receipts/add</li>
+     <li> GET /api/auth/receipts/all</li>
  
   
   </ul>
