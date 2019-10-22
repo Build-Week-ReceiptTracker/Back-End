@@ -28,6 +28,7 @@ server.use(logger);
 server.use('/api',authRouter);
 server.use('/api/auth/receipts',authenticate,receipts)
 server.use('/api/auth/update',authenticate,updateUser)
+server.use('/api/auth/delete',authenticate,updateUser)
 //Test server
 
 

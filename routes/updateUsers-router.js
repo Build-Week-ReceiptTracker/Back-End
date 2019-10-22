@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db = require('../models/users-model');
 const bcrypt = require('bcryptjs')
 
-//  /api/auth/:id
+//  /api/auth/update
 
 router.put("/:id", async (req,res) =>{
     const  id  = req.params.id
@@ -39,4 +39,16 @@ try{
     res.status(500).json({message:"Uh Oh server error",error:err.message})
 }     
 })
+// app/auth/delete
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db.deleteUser(id)
+        .then(count => {
+            if(count){ res.status(200).json({transactionID:count,message:`User # ${id} deleted`});
+         }else{res.status(404).json({ error: "A User with that id does not exist." });
+         } })
+        .catch(err => res.status(500).json({ error: err }));
+});
+
 module.exports = router

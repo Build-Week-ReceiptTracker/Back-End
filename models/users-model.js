@@ -7,7 +7,8 @@ module.exports = {
      findById,
      add,
      updateEmail,
-     updatePassword
+     updatePassword,
+     deleteUser
 };
 
 function find() {
@@ -48,3 +49,8 @@ function find() {
           
           .update({'password':password})
       };
+      function deleteUser(id) {
+        return db('users')
+            .where({ id })
+            .delete()
+    };
