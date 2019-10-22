@@ -6,6 +6,9 @@ module.exports = {
      findBy,
      findById,
      add,
+     updateEmail,
+     updatePassword,
+     deleteUser
 };
 
 function find() {
@@ -21,10 +24,10 @@ function find() {
   
   function findById(id) {
     return db('users')
-    .select('username','id')
-      .where({ id })
+    .select('email')
+      .where({ id:id})
       .first()
-      .then(user => user)
+      .then(user => {return user})
   }
   
   function add(userData) {
@@ -32,4 +35,22 @@ function find() {
       .insert(userData, "id")
       .then(userIdArr => findById(userIdArr[0]))
   }
-  
+
+
+  function updateEmail(id,email) {
+    return db('users')
+        .where({ id })
+        
+        .update({'email':email})
+    };
+    function updatePassword(id,password) {
+      return db('users')
+          .where({ id })
+          
+          .update({'password':password})
+      };
+      function deleteUser(id) {
+        return db('users')
+            .where({ id })
+            .delete()
+    };

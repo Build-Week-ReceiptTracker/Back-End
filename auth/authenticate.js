@@ -5,7 +5,7 @@ const secrets = require('../config/secrets');
 
 module.exports = (req,res,next) => {
     const token = req.headers.authorization;
-
+   
     if (token) {
         //check if token is valid
         jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
@@ -18,7 +18,7 @@ module.exports = (req,res,next) => {
        
                 //Finish with this middleware onto the next
                 
-                
+            
                 next()
             }
         });

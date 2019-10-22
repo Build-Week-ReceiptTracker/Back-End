@@ -24,6 +24,23 @@ router.post('/register', (req, res) => {
       res.status(500).json({ message: 'cannot add the user', error });
     });
 });
+router.put('/username/update', (req, res) => {
+  const username = req.params.username;
+  const changes = req.body;
+
+
+  if(changes) {
+      Receipts.updateReceipt(username, changes)
+          .then(count => {
+              if(count){ 
+              res.status(202).json(count);
+               }else{ res.status(404).json({ error: "Please enter a valid password" })
+          }})
+          .catch(err => res.status(500).json({ error: err }));
+  } else {
+      res.status(400).json({ error: "Please provide all required fields." });
+  }
+});
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
@@ -41,7 +58,7 @@ router.post('/login', (req, res) => {
           token,
         });
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.status(420).json({ message: 'Go smoke a bowl and stop hitting my api with your bs requests' });
       }
     })
     .catch(error => {
@@ -71,7 +88,7 @@ function generateToken(user) {
     role: user.role,
   };
   const options = {
-    expiresIn: '1h',
+    expiresIn: '8h',
   };
 
   return jwt.sign(payload, secrets.jwtSecret, options);
