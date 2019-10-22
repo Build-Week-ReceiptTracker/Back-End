@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const authRouter = require('../routes/auth-router')
 const authenticate = require('../auth/authenticate')
 const receipts = require('../routes/receipts-router')
-
+const updateUser = require('../routes/updateUsers-router')
 
 
 // Create server
@@ -27,6 +27,7 @@ server.use(logger);
 //Add routes
 server.use('/api',authRouter);
 server.use('/api/auth/receipts',authenticate,receipts)
+server.use('/api/auth/update',authenticate,updateUser)
 //Test server
 
 

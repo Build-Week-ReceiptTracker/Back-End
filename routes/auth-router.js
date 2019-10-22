@@ -24,6 +24,23 @@ router.post('/register', (req, res) => {
       res.status(500).json({ message: 'cannot add the user', error });
     });
 });
+router.put('/username/update', (req, res) => {
+  const username = req.params.username;
+  const changes = req.body;
+
+
+  if(changes) {
+      Receipts.updateReceipt(username, changes)
+          .then(count => {
+              if(count){ 
+              res.status(202).json(count);
+               }else{ res.status(404).json({ error: "Please enter a valid password" })
+          }})
+          .catch(err => res.status(500).json({ error: err }));
+  } else {
+      res.status(400).json({ error: "Please provide all required fields." });
+  }
+});
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;

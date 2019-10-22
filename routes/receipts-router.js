@@ -40,7 +40,7 @@ router.post('/add', (req, res) => {
             .then(id => res.status(201).json({receiptID:`${id}`,message:'Receipt added!!! Thank You!!!'}))
             .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err }));
     } else {
-        res.status(418).json({ error:"I'm a teapot !!!Please provide all required fields." })
+        res.status(409).json({ error:"Please provide all required fields." })
     }
 });
 
