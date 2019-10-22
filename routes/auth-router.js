@@ -41,7 +41,7 @@ router.post('/login', (req, res) => {
           token,
         });
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.status(420).json({ message: 'Go smoke a bowl and stop hitting my api with your bs requests' });
       }
     })
     .catch(error => {
