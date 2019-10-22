@@ -45,9 +45,9 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
-    const token = req.decodedToken;
+ 
 
-    if(changes.date && changes.amount_spent && changes.category && changes.merchant) {
+    if(changes) {
         Receipts.updateReceipt(id, changes)
             .then(count => {
                 if(count) res.status(202).json(count);
