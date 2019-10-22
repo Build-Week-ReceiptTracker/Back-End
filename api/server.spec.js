@@ -1,31 +1,25 @@
 
 
-const request = require('supertest'); // calling it "request" is a common practice
+const request = require('supertest');
 
-const server = require('./server.js'); // this is our first red, file doesn't exist yet
+const server = require('./server.js'); 
 
 describe('server.js', () => {
-  // http calls made with supertest return promises, we can use async/await if desired
+  // http request  with supertest
   describe('index route', () => {
     it('should return an OK status code from the index route', async () => {
       const expectedStatusCode = 200;
+      let response;
+      return request(server).get('/').then(res => {
+        response = res;
 
-      // do a get request to our api (server.js) and inspect the response
-      const response = await request(server).get('/');
-
-      expect(response.status).toEqual(expectedStatusCode);
-
-      // same test using promise .then() instead of async/await
-      // let response;
-      // return request(server).get('/').then(res => {
-      //   response = res;
-
-      //   expect(response.status).toEqual(expectedStatusCode);
-      // })
+        expect(response.status).toEqual(expectedStatusCode);
+      })
     });
 
-    it('should return a JSON object fron the index route', async () => {
-      const expectedBody = { api: 'running' };
+    it('should return a JSON object from the index route', async () => {
+      const expectedBody = {};
+  
 
       const response = await request(server).get('/');
 
@@ -35,7 +29,7 @@ describe('server.js', () => {
     it('should return a JSON object fron the index route', async () => {
       const response = await request(server).get('/');
 
-      expect(response.type).toEqual('application/json');
+      expect(response.type).toEqual('text/html');
     });
   });
 });
