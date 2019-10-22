@@ -39,5 +39,5 @@ function deleteReceipt(id) {
 function updateReceipt(id, changes) {
     return db('receipts')
         .where({ id })
-        .update(changes)
+        .update(changes,"id")
     };
