@@ -11,12 +11,12 @@ module.exports = {
 function getReceipts(username) {
     return db('receipts as r')
         .join('users as u', 'r.user_username', 'u.username')
-        .select('r.id', 'r.date_of_transaction', 'r.amount_spent', 'r.category', 'r.merchant')
+        .select('r.id', 'r.date_of_transaction', 'r.amount_spent', 'r.category', 'r.merchant','r.image_url','r.description')
         .where({ user_username : username });
 };
 function getReceiptByID(id) {
     return db('receipts as r')
-          .select('r.id', 'r.date_of_transaction', 'r.amount_spent', 'r.category', 'r.merchant','r.image')
+          .select('r.id', 'r.date_of_transaction', 'r.amount_spent', 'r.category', 'r.merchant','r.image_url','r.description')
            .where({ id })
            .first()
            .then(receipt => receipt)
