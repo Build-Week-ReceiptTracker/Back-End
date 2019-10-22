@@ -14,9 +14,17 @@ router.get('/all',(req, res) => {
 
 router.get('/:id',(req,res) => {
     const id = req.params.id
-    Receipts.getReceiptByID(id)
-    .then(receipt => res.status(200).json(receipt))
+    // Receipts.getReceiptByID(id)
+    
+        Receipts.getReceiptByID(id)
+    .then(receipt =>{
+        if(receipt) {
+        res.status(200).json(receipt);
+
+    }else{
+        res.status(401).json({message:`Sorry the receipt with id# ${id} cannot be found`})}})
     .catch(err => res.status(500).json({err:err.message}))
+
 })
 
 router.post('/add', (req, res) => {
