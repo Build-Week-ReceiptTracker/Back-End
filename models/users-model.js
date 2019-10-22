@@ -6,6 +6,7 @@ module.exports = {
      findBy,
      findById,
      add,
+     updatePassword
 };
 
 function find() {
@@ -31,5 +32,12 @@ function find() {
     return db('users')
       .insert(userData, "id")
       .then(userIdArr => findById(userIdArr[0]))
+  }
+
+  function updatePassword(id,changes){
+    return('users', 'password')
+    .where({id})
+    .update(changes,"id")
+   
   }
   
