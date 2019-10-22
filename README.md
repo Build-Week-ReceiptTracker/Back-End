@@ -14,7 +14,6 @@ Then `npm start` or `yarn start` to spin up the dev server
 
 ##                          *******End Points*******        
 
-
-
+[End Point Docs](https://www.notion.so/harleyent/End-Points-6ae1b738bcba4770be49860eada12237)
 
 ##                    *******Data Structure*******     
