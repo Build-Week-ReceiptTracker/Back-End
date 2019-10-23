@@ -38,7 +38,7 @@ router.post('/add', (req, res) => {
     if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json({receiptID:`${id}`,message:'Receipt added!!! Thank You!!!'}))
-            .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err }));
+            .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));
     } else {
         res.status(409).json({ error:"Please provide all required fields." })
     }
