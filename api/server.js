@@ -4,12 +4,15 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 
+
+
 //restricted routes
 const authRouter = require('../routes/auth-router')
 const authenticate = require('../auth/authenticate')
 const receipts = require('../routes/receipts-router')
 const updateUser = require('../routes/updateUsers-router')
-const Upload = require("../Upload/app/routers/file.router")
+
+
 
 // Create server
 const server = express()
@@ -31,7 +34,7 @@ server.use('/api',authRouter);
 server.use('/api/auth/receipts',authenticate,receipts)
 server.use('/api/auth/update',authenticate,updateUser)
 server.use('/api/auth/delete',authenticate,updateUser)
-server.use('/api/file',authenticate,logger,Upload)
+
 //Test server
 
 

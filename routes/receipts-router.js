@@ -34,7 +34,7 @@ router.get('/:id',(req,res) => {
 
 router.post('/add', (req, res) => {
     const receipt = req.body;
-
+     console.log(req.body)
     if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json({receiptID:`${id}`,message:'Receipt added!!! Thank You!!!'}))
