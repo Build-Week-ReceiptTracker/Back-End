@@ -32,8 +32,9 @@ function postReceipt(receipt) {
         .insert(receipt,"id");
 };
 
-function deleteReceipt(id) {
+function deleteReceipt(id,user) {
     return db('receipts')
+        .select('id','user_username')
         .where({ id })
         .delete()
 };
