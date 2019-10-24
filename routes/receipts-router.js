@@ -6,7 +6,7 @@ const Receipts = require('../models/receipts-model');
 router.get('/all',(req, res) => {
 // console.log(req.route.path)
 
-    console.log(req.user)
+    // console.log(req.user)
     Receipts.getReceipts(req.user)
         .then(receipts =>{
             if(receipts){
@@ -18,28 +18,14 @@ router.get('/all',(req, res) => {
 });
 // auth/receipts/${filter}
   
-router.get('/:filter',(req,res) =>{
 
-    let filter = req.params.filter
-    
-    let username = req.user
-      if(filter){
-         Receipts.findBy({filter},username)
-        .then((results) =>{
-            if(results){ res.status(200).json({message:`filter = ${filter}`,response:results})
-        }else{res.status(404).json({response:`Sorry no receipts for user ${username} where found using the filter option.`})}
-        })  
-      }else{res.status(500).json({message:res.message})}
-      
-        
-  }) 
 
 
 router.get('/:id',(req,res,next) => {
     const user = req.user
     const id = req.params.id
 
-        if(!id){next()
+     
         Receipts.getReceiptByID(id,user,)
      
     .then(receipt =>{
@@ -60,7 +46,22 @@ router.get('/:id',(req,res,next) => {
 
    .catch(err => res.status(500).json({message:'Uh Oh sever error',err:err.message}))
 
-}})
+})
+router.get('/search/:filter',(req,res) =>{
+
+    let filter = req.params.filter
+    
+    let username = req.user
+      if(filter){
+         Receipts.findBy({filter},username)
+        .then((results) =>{
+            if(results){ res.status(200).json({message:`filter = ${filter}`,response:results})
+        }else{res.status(404).json({response:`Sorry no receipts for user ${username} where found using the filter option.`})}
+        })  
+      }else{res.status(500).json({message:res.message})}
+      
+        
+  }) 
 
 
 router.post('/add', (req, res) => {

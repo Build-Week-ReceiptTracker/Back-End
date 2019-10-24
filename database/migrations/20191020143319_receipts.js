@@ -8,7 +8,7 @@ exports.up = function(knex) {
             tbl.string('email', 100)
                 .notNullable()
                 .unique();
-            tbl.string('password', 255)
+            tbl.string('password', 20)
                 .notNullable();
         })
         .createTable('receipts', tbl => {
