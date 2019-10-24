@@ -5,7 +5,8 @@ module.exports = {
     postReceipt,
     deleteReceipt,
     updateReceipt,
-    getReceiptByID
+    getReceiptByID,
+    findBy
 };
 
 function getReceipts(username) {
@@ -24,6 +25,13 @@ function getReceiptByID(id) {
    
           
         }   
+        function findBy(filter,username) {
+            // console.log('Receipts filter log',filter)
+            return db('receipts as r')
+              .join('users as u','r.user_username','u.username')
+              .select(filter,'username')
+              .where({user_username: username})
+          }
 
 function postReceipt(receipt) {
     

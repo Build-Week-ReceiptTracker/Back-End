@@ -4,7 +4,7 @@ const Receipts = require('../models/receipts-model');
 // api/auth/receipts
 
 router.get('/all',(req, res) => {
-
+// console.log(req.route.path)
 
     console.log(req.user)
     Receipts.getReceipts(req.user)
@@ -16,36 +16,66 @@ router.get('/all',(req, res) => {
          } })
         .catch(err => res.status(500).json({message: 'Uh Oh server error', error: err.message }));
 });
+// auth/receipts/${filter}
+  
+router.get('/:filter',(req,res) =>{
 
-router.get('/:id',(req,res) => {
+    let filter = req.params.filter
+    
+    let username = req.user
+      if(filter){
+         Receipts.findBy({filter},username)
+        .then((results) =>{
+            if(results){ res.status(200).json({message:`filter = ${filter}`,response:results})
+        }else{res.status(404).json({response:`Sorry no receipts for user ${username} where found using the filter option.`})}
+        })  
+      }else{res.status(500).json({message:res.message})}
+      
+        
+  }) 
+
+
+router.get('/:id',(req,res,next) => {
     const user = req.user
     const id = req.params.id
 
-    
-        Receipts.getReceiptByID(id,user)
-
+        if(!id){next()
+        Receipts.getReceiptByID(id,user,)
+     
     .then(receipt =>{
-      
-        if(user === receipt.user_username) {
+      if(!receipt){
+          res.status(404).json({message:`Sorry a receipt with id # ${id} could not be found`})
+    
+        }else if(user === receipt.user_username) {
         res.status(200).json(receipt);
 
-    }else{
-        res.status(401).json({message:`Sorry the receipt with id# ${id} cannot be found`})}})
-    .catch(err => res.status(500).json({message:'Uh Oh sever error',err:err.message}))
+      }else if(user != receipt.user_username){
+        res.status(401).json({message:`Sorry the receipt with id # ${id} does not belong to  ${user}`})
 
-})
+      }else if(!receipt){
+          res.status(404).json({message:`Sorry a receipt with id # ${id} could not be found`})
+
+      }else{
+          res.status(404).json({message:`Sorry a receipt with id # ${id} could not be found`})}})
+
+   .catch(err => res.status(500).json({message:'Uh Oh sever error',err:err.message}))
+
+}})
+
 
 router.post('/add', (req, res) => {
     const receipt = req.body;
     const user = req.user
-  
+  try{
     if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username && receipt.user_username === user) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json({receiptID:`${id}`,message:'Receipt added!!! Thank You!!!'}))
-            .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));
+         
     } else {
         res.status(409).json({ error:"Please provide all required fields." })
-    }
+    }}
+catch{
+     (err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));}
 });
 
 router.delete('/:id/del', async (req, res) => {
@@ -71,13 +101,13 @@ try{
 router.put('/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
- 
+    const user = req.user
 
     if(changes) {
         Receipts.updateReceipt(id, changes)
             .then(count => {
                 if(count){ 
-                res.status(202).json(count);
+                res.status(202).json({changes:changes,message:`Changes have been updated for receipt # ${id} Thank You ${user}` });
                  }else{ res.status(404).json({ error: "Receipt with that ID not found." })
             }})
             .catch(err => res.status(500).json({ error: err }));
