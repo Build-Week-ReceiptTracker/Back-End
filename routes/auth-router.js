@@ -46,11 +46,16 @@ router.put('/username/update', (req, res) => {
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
-
+  
+  if(!username || !password){
+    
+    res.status(403).json({message:'Please enter login information'}) 
+  }
   db.findBy({ username })
     .first()
     .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
+  
+       if (user && bcrypt.compareSync(password, user.password)) {
         // produce token
         const token = generateToken(user);
 

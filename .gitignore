@@ -92,3 +92,4 @@ typings/
 .gcloudignore
 package-lock.json
 .package-lock.json
+public/index.html
