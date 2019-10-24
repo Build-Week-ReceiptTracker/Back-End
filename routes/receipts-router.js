@@ -55,7 +55,8 @@ router.post('/add', (req, res) => {
     } else {
         res.status(409).json({ error:"Please provide all required fields." })
     }}
-catch{(err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));}
+catch{
+     (err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));}
 });
 
 router.delete('/:id/del', async (req, res) => {
@@ -81,13 +82,13 @@ try{
 router.put('/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
- 
+    const user = req.user
 
     if(changes) {
         Receipts.updateReceipt(id, changes)
             .then(count => {
                 if(count){ 
-                res.status(202).json(count);
+                res.status(202).json({changes:changes,message:`Changes have been updated for receipt # ${id} Thank You ${user}` });
                  }else{ res.status(404).json({ error: "Receipt with that ID not found." })
             }})
             .catch(err => res.status(500).json({ error: err }));
