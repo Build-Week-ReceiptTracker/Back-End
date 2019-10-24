@@ -17,35 +17,45 @@ router.get('/all',(req, res) => {
         .catch(err => res.status(500).json({message: 'Uh Oh server error', error: err.message }));
 });
 
-router.get('/:id',(req,res) => {
+router.get('/:id',(req,res,next) => {
     const user = req.user
     const id = req.params.id
 
     
-        Receipts.getReceiptByID(id,user)
+        Receipts.getReceiptByID(id,user,)
 
     .then(receipt =>{
-      
-        if(user === receipt.user_username) {
+      if(!receipt){
+          res.status(404).json({message:`Sorry a receipt with id # ${id} could not be found`})
+    
+        }else if(user === receipt.user_username) {
         res.status(200).json(receipt);
 
-    }else{
-        res.status(401).json({message:`Sorry the receipt with id# ${id} cannot be found`})}})
-    .catch(err => res.status(500).json({message:'Uh Oh sever error',err:err.message}))
+      }else if(user != receipt.user_username){
+        res.status(401).json({message:`Sorry the receipt with id # ${id} does not belong to  ${user}`})
+
+      }else if(!receipt){
+          res.status(404).json({message:`Sorry a receipt with id # ${id} could not be found`})
+
+      }else{
+          res.status(404).json({message:`Sorry a receipt with id # ${id} could not be found`})}})
+
+   .catch(err => res.status(500).json({message:'Uh Oh sever error',err:err.message}))
 
 })
 
 router.post('/add', (req, res) => {
     const receipt = req.body;
     const user = req.user
-  
+  try{
     if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username && receipt.user_username === user) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json({receiptID:`${id}`,message:'Receipt added!!! Thank You!!!'}))
-            .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));
+         
     } else {
         res.status(409).json({ error:"Please provide all required fields." })
-    }
+    }}
+catch{(err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));}
 });
 
 router.delete('/:id/del', async (req, res) => {
