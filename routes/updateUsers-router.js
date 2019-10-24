@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db = require('../models/users-model');
 const bcrypt = require('bcryptjs')
 
-//  /api/auth/update
+//  /api/auth/update/
 
 router.put("/:id", async (req,res) =>{
     const  id  = req.params.id
@@ -15,13 +15,17 @@ try{
     if(user){
          if (email && password){
         const updatedEmail = await db.updateEmail(id,email);
+        const newUser = await db.findById(id)
+        const updateEmail = await db.findBy({email})
+         console.log(updateEmail)
        const hash = bcrypt.hashSync(password,10); // 2 ^ n
         user.password = hash
               await db.updatePassword(id,hash)
-        res.status(200).json({message:`Password and email updated for user id # ${updatedEmail}`})
+        res.status(200).json({updates:newUser,message:`Password and email updated for user id # ${updatedEmail}`})
          }else if(email){
         const updatedEmail = await db.updateEmail(id,email);
-        res.status(200).json({message:`Email updated for user id # ${updatedEmail}`})
+        const updateEmail = await db.findBy({email}).select('id','email')
+        res.status(200).json({updates:updateEmail,message:`Email updated for user id # ${updatedEmail}`})
         }else if(password){
             const hash = bcrypt.hashSync(password,10); // 2 ^ n
             user.password = hash
@@ -36,10 +40,10 @@ try{
         res.status(404).json({message:"Please enter a valid password"})
     }
 } catch (err){
-    res.status(500).json({message:"Uh Oh server error",error:err.message})
+    res.status(500).json({message:"Uh Oh server error",errorMessage:err.message})
 }     
 })
-// app/auth/delete
+// api/auth/delete
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
 

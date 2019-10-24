@@ -17,14 +17,14 @@ function find() {
   }
   
   function findBy(filter) {
-    console.log(filter)
+    // console.log('filter log',filter)
     return db('users')
       .where(filter)
   }
   
   function findById(id) {
     return db('users')
-    .select('email','user_username')
+    .select('id','username','email')
       .where({ id:id})
       .first()
       .then(user => {return user})
@@ -39,7 +39,8 @@ function find() {
 
   function updateEmail(id,email) {
     return db('users')
-        .where({ id })
+        
+        .where({ id:id })
         
         .update({'email':email})
     };
