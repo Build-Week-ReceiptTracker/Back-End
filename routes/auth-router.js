@@ -8,13 +8,13 @@ const secrets = require('../config/secrets');
 
 // for endpoints beginning with /api
 router.post('/register', (req, res) => {
-  let user = req.body.email;req.body.username
+  let user = req.body
   // console.log(user)
   const hash = bcrypt.hashSync(user.password,10); // 2 ^ n
  user.password = hash
 
 
-
+db.add(user)
     .then(saved =>{
      if(saved){
     res.status(201).json({message:`${saved.email} added`})
@@ -46,11 +46,16 @@ router.put('/username/update', (req, res) => {
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
-
+  
+  if(!username || !password){
+    
+    res.status(403).json({message:'Please enter login information'}) 
+  }
   db.findBy({ username })
     .first()
     .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
+  
+       if (user && bcrypt.compareSync(password, user.password)) {
         // produce token
         const token = generateToken(user);
 
