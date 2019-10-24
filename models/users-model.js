@@ -24,7 +24,7 @@ function find() {
   
   function findById(id) {
     return db('users')
-    .select('email')
+    .select('email','user_username')
       .where({ id:id})
       .first()
       .then(user => {return user})

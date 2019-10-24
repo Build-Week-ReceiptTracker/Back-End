@@ -8,17 +8,19 @@ const secrets = require('../config/secrets');
 
 // for endpoints beginning with /api
 router.post('/register', (req, res) => {
-  let user = req.body;
+  let user = req.body.email;req.body.username
   console.log(user)
   const hash = bcrypt.hashSync(user.password,10); // 2 ^ n
  user.password = hash
 
-  db.add(user)
- 
+
+
     .then(saved =>{
-  
-    res.status(201).json(saved)})
-  
+     if(saved){
+    res.status(201).json({message:`${saved.email} added`})
+} else {
+  res.status(404).json({message:"Please check username and email"})
+}})
     .catch(error => {
   
       res.status(500).json({ message: 'cannot add the user', error });
@@ -58,7 +60,7 @@ router.post('/login', (req, res) => {
           token,
         });
       } else {
-        res.status(420).json({ message: 'Go smoke a bowl and stop hitting my api with your bs requests' });
+        res.status(404).json({ message: 'User does not exist' });
       }
     })
     .catch(error => {

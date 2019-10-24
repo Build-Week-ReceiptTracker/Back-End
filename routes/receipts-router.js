@@ -18,12 +18,15 @@ router.get('/all',(req, res) => {
 });
 
 router.get('/:id',(req,res) => {
+    const user = req.user
     const id = req.params.id
 
     
-        Receipts.getReceiptByID(id)
+        Receipts.getReceiptByID(id,user)
+
     .then(receipt =>{
-        if(receipt) {
+      
+        if(user === receipt.user_username) {
         res.status(200).json(receipt);
 
     }else{
@@ -34,25 +37,35 @@ router.get('/:id',(req,res) => {
 
 router.post('/add', (req, res) => {
     const receipt = req.body;
-
-    if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username) {
+    const user = req.user
+  
+    if(receipt.date_of_transaction && receipt.amount_spent && receipt.category && receipt.merchant && receipt.user_username && receipt.user_username === user) {
         Receipts.postReceipt(receipt)
             .then(id => res.status(201).json({receiptID:`${id}`,message:'Receipt added!!! Thank You!!!'}))
-            .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err }));
+            .catch(err => res.status(500).json({message:'Uh Oh server error !!!', error: err.message }));
     } else {
         res.status(409).json({ error:"Please provide all required fields." })
     }
 });
 
-router.delete('/:id/del', (req, res) => {
+router.delete('/:id/del', async (req, res) => {
     const id = req.params.id;
-
+    const user = req.user
+     const receipt = await Receipts.getReceiptByID(id);
+try{
+     if(user === receipt.user_username){
     Receipts.deleteReceipt(id)
         .then(count => {
             if(count){ res.status(200).json({transactionID:count,message:`Receipt # ${id} deleted`});
          }else{res.status(404).json({ error: "A Receipt with that id does not exist." });
          } })
-        .catch(err => res.status(500).json({ error: err }));
+     
+      
+     }else{
+       res.status(401).json({message:`Please check the receipt id. ReceiptId # ${id} doesn't belong to this user` })
+     }
+}   catch(err){
+    res.status(500).json({ error: err })};
 });
 
 router.put('/:id', (req, res) => {
