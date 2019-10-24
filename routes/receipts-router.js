@@ -25,7 +25,7 @@ router.get('/:filter',(req,res) =>{
     let username = req.user
       if(filter){
          Receipts.findBy({filter},username)
-        .then((results) =>{console.log(results);
+        .then((results) =>{
             if(results){ res.status(200).json({message:`filter = ${filter}`,response:results})
         }else{res.status(404).json({response:`Sorry no receipts for user ${username} where found using the filter option.`})}
         })  
@@ -38,7 +38,7 @@ router.get('/:filter',(req,res) =>{
 router.get('/:id',(req,res,next) => {
     const user = req.user
     const id = req.params.id
-console.log("ID LOG",user,id,req.params)
+
         if(!id){next()
         Receipts.getReceiptByID(id,user,)
      

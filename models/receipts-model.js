@@ -26,7 +26,7 @@ function getReceiptByID(id) {
           
         }   
         function findBy(filter,username) {
-            console.log('Receipts filter log',filter)
+            // console.log('Receipts filter log',filter)
             return db('receipts as r')
               .join('users as u','r.user_username','u.username')
               .select(filter,'username')
